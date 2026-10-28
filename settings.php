@@ -1,18 +1,25 @@
 <?php
 /**
- * Settings API (currently only the currency symbol).
+ * The shop's saved settings (currently the currency symbol).
  *
- *   GET  api/settings.php  -> {"currency": "$"}
- *   POST api/settings.php  -> body {"currency": "₱"}
+ *   GET  api/settings.php -> {"currency": "$"}
+ *   POST api/settings.php -> body {"currency": "₱"}
  */
 declare(strict_types=1);
 
-require __DIR__ . '/db.php';
+require_once __DIR__ . '/bootstrap.php';
+require_password();
+
+$method = $_SERVER['REQUEST_METHOD'];
+if ($method !== 'GET' && $method !== 'POST') {
+    header('Allow: GET, POST');
+    json_out(['error' => 'Use GET or POST on this endpoint'], 405);
+}
 
 try {
     $pdo = db();
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if ($method === 'POST') {
         $currency = clean_str(json_in()['currency'] ?? '$', 4);
         if ($currency === '') {
             $currency = '$';
@@ -27,6 +34,5 @@ try {
     $stmt->execute(['currency']);
     json_out(['currency' => $stmt->fetchColumn() ?: '$']);
 } catch (PDOException $e) {
-    error_log('settings.php: ' . $e->getMessage());
-    json_out(['error' => 'Database error'], 500);
+    db_error('settings.php', $e);
 }

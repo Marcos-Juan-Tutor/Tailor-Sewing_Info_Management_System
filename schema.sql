@@ -1,7 +1,8 @@
 -- Tailor Order Book: database schema (MySQL 5.7+ / MariaDB 10.3+)
 --
--- Run once:   mysql -u root -p < sql/schema.sql
--- Then create a user for the app (see README.md) and put it in api/config.php.
+-- Run once, either in phpMyAdmin (Import) or from the command line:
+--   mysql -u root -p < sql/schema.sql
+-- The database name is fixed to tailor_book; api/config.php points at it.
 
 CREATE DATABASE IF NOT EXISTS tailor_book
   DEFAULT CHARACTER SET utf8mb4
