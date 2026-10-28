@@ -1,41 +1,43 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Tailor Order Book</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Public+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
-  <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-  <div class="app" id="app" data-view="list">
-    <header class="top">
-      <h1 class="brand">Tailor Order Book</h1>
-      <div class="tape" aria-hidden="true"></div>
-      <div class="tools">
-        <label class="cur">Currency <input id="cur" value="$" maxlength="4" aria-label="Currency symbol"></label>
-        <button class="btn small" id="exportBtn" type="button">Export CSV</button>
-      </div>
-    </header>
-
-    <div class="main">
-      <aside class="listpane" aria-label="Orders">
-        <div class="listtools">
-          <button class="btn primary" id="newBtn" type="button">+ New order</button>
-          <input id="q" type="search" placeholder="Search name, phone, item, order no." aria-label="Search orders">
-          <div class="chips" id="chips" role="group" aria-label="Filter"></div>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Tailor Order Book</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Public+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- One entry point; it loads the files in js/ itself. A module script waits
+         for the page to be parsed, so the elements below already exist. -->
+    <script type="module" src="js/main.js"></script>
+  </head>
+  <body>
+    <div class="app" id="app" data-view="list">
+      <header class="top">
+        <h1 class="brand">Tailor Order Book</h1>
+        <div class="tape" aria-hidden="true"></div>
+        <div class="tools">
+          <label class="cur">Currency <input id="cur" value="$" maxlength="4" aria-label="Currency symbol"></label>
+          <button class="btn small" id="exportBtn" type="button">Export CSV</button>
         </div>
-        <ul id="list"></ul>
-        <div class="listfoot" id="foot">Loading order book…</div>
-      </aside>
+      </header>
 
-      <!-- The order sheet is drawn by js/app.js (renderDetail). -->
-      <section class="detail" id="detail" aria-live="polite"></section>
+      <div class="main">
+        <aside class="listpane" aria-label="Orders">
+          <div class="listtools">
+            <button class="btn primary" id="newBtn" type="button">+ New order</button>
+            <input id="q" type="search" placeholder="Search name, phone, item, order no." aria-label="Search orders">
+            <div class="chips" id="chips" role="group" aria-label="Filter"></div>
+          </div>
+          <ul id="list"></ul>
+          <div class="listfoot" id="foot">Loading order book…</div>
+        </aside>
+
+        <!-- The order sheet is drawn by js/views/detail.js. -->
+        <section class="detail" id="detail" aria-live="polite"></section>
+      </div>
     </div>
-  </div>
 
-  <div class="toast" id="toast" hidden></div>
+    <div class="toast" id="toast" hidden></div>
 
-  <script src="js/app.js"></script>
-</body>
+  </body>
 </html>
